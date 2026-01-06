@@ -1,0 +1,186 @@
+{
+  "PlayerCharacters": [
+    {
+      "Name": "",
+      "Gold": 300,
+      "Exp": 0,
+      "NextLevelReqExp": 50,
+      "ClassName": "Wojownik",
+      "Description": "Do\u015Bwiadczony \u017Co\u0142nierz, walcz\u0105cy w zwarciu. Wytrzyma\u0142y i stabilny.",
+      "MaxHealth": 120,
+      "Health": 120,
+      "Attack": 15,
+      "Level": 1
+    },
+    {
+      "Name": "",
+      "Gold": 300,
+      "Exp": 0,
+      "NextLevelReqExp": 50,
+      "ClassName": "Łucznik",
+      "Description": "Mistrz walki dystansowej, polega na refleksie i precyzji.",
+      "MaxHealth": 90,
+      "Health": 90,
+      "Attack": 17,
+      "Level": 1
+    },
+    {
+      "Name": "",
+      "Gold": 300,
+      "Exp": 0,
+      "NextLevelReqExp": 50,
+      "ClassName": "Mag",
+      "Description": "Uczony mag, który poświęcił ciało na rzecz potężnej magii.",
+      "MaxHealth": 70,
+      "Health": 70,
+      "Attack": 25,
+      "Level": 1
+    },
+    {
+      "Name": "",
+      "Gold": 300,
+      "Exp": 0,
+      "NextLevelReqExp": 50,
+      "ClassName": "Mag",
+      "Description": "Złodziej i zabójca, który atakuje szybko i bez ostrzeżenia.",
+      "MaxHealth": 85,
+      "Health": 85,
+      "Attack": 18,
+      "Level": 1
+    }
+  ],
+  "Enemies": [
+    {
+      "ClassName": "Szczur",
+      "Description": "Mały i słaby przeciwnik.",
+      "MaxHealth": 30,
+      "Health": 30,
+      "Attack": 10,
+      "Level": 1
+    },
+    {
+      "ClassName": "Goblin",
+      "Description": "Zwinny i przebiegły przeciwnik.",
+      "MaxHealth": 60,
+      "Health": 60,
+      "Attack": 15,
+      "Level": 1
+    },
+    {
+      "ClassName": "Bandyta",
+      "Description": "Uzbrojony przeciwnik.",
+      "MaxHealth": 90,
+      "Health": 90,
+      "Attack": 19,
+      "Level": 1
+    },
+    {
+      "ClassName": "Wilk",
+      "Description": "Szybki i agresywny przeciwnik.",
+      "MaxHealth": 80,
+      "Health": 90,
+      "Attack": 21,
+      "Level": 1
+    },
+    {
+      "ClassName": "Ork",
+      "Description": "Silny przeciwnik walczący w zwarciu, odporny na obrażenia.",
+      "MaxHealth": 140,
+      "Health": 140,
+      "Attack": 30,
+      "Level": 1
+    }
+  ],
+  "Items": [
+    {
+      "Name": "Zardzewiały Sztylet",
+      "Description": "Prosty sztylet, którego ostrze dawno straciło swój blask.",
+      "Price": 35,
+      "HPMod": 0,
+      "AttackMod": 3,
+      "Level": 1,
+      "Tier": 1,
+      "Category": 1
+    },
+    {
+      "Name": "Runiczny Miecz Adepta",
+      "Description": "Miecz z wyrytymi runami wzmacniającymi siłę uderzeń.",
+      "Price": 110,
+      "HPMod": 3,
+      "AttackMod": 6,
+      "Level": 1,
+      "Tier": 1,
+      "Category": 1
+    },
+    {
+      "Name": "Topór Wojennego Berserkera",
+      "Description": "Ciężki topór używany przez doświadczonych wojowników północy.",
+      "Price": 275,
+      "HPMod": 0,
+      "AttackMod": 8,
+      "Level": 1,
+      "Tier": 1,
+      "Category": 1
+    },
+    {
+      "Name": "Ostrze Upadłego Króla",
+      "Description": "Miecz należący niegdyś do władcy, który poległ w wielkiej bitwie.",
+      "Price": 669,
+      "HPMod": 8,
+      "AttackMod": 14,
+      "Level": 1,
+      "Tier": 1,
+      "Category": 1
+    },
+    {
+      "Name": "Skórzana Zbroja",
+      "Description": "Zbroja oferująca minimalną ochronę.",
+      "Price": 40,
+      "HPMod": 5,
+      "AttackMod": 0,
+      "Level": 1,
+      "Tier": 1,
+      "Category": 2
+    },
+    {
+      "Name": "Płaszcz Strażnika Miasta",
+      "Description": "Lekki pancerz noszony przez miejskich strażników.",
+      "Price": 120,
+      "HPMod": 12,
+      "AttackMod": 0,
+      "Level": 1,
+      "Tier": 1,
+      "Category": 2
+    },
+    {
+      "Name": "Pancerz Żelaznego Legionisty",
+      "Description": "Solidna zbroja należąca do elitarnej piechoty.",
+      "Price": 282,
+      "HPMod": 26,
+      "AttackMod": 2,
+      "Level": 1,
+      "Tier": 1,
+      "Category": 2
+    },
+    {
+      "Name": "Zbroja Smoczego Strażnika",
+      "Description": "Pancerz wykuty z łusek pradawnego smoka.",
+      "Price": 700,
+      "HPMod": 89,
+      "AttackMod": 0,
+      "Level": 1,
+      "Tier": 1,
+      "Category": 2
+    },
+    {
+      "Name": "Potka Życia",
+      "Description": "Magiczna mikstura przywracająca zdrowie.",
+      "Price": 20,
+      "HPMod": 100,
+      "AttackMod": 0,
+      "Level": 1,
+      "Tier": 1,
+      "Category": 3
+    }
+  ]
+}
