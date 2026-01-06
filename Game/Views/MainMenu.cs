@@ -3,7 +3,7 @@ using Game.Lib;
 
 namespace Game.Views;
 
-public static class MainMenuScreen
+public static class MainMenu
 {
     public static void WelcomeView()
     {
@@ -23,7 +23,16 @@ public static class MainMenuScreen
     public static void NewGameView()
     {
         Console.WriteLine("Rozpocznij nową grę");
-        Console.ReadLine();
+        var count = Globals.InitialData!.PlayerCharacters.Count;
+        for (var i = 0; i < count; i++)
+        {
+            var p = Globals.InitialData.PlayerCharacters[i];
+            Console.WriteLine($"[{i + 1}]");
+            p.PrintBaseStats();
+            Console.WriteLine();
+        }
+        Console.WriteLine("Wybierz klasę postaci");
+        var input = Helpers.GetInputInRange(1, count);
     }
 
     private static void OnExitGameAction()
@@ -33,6 +42,6 @@ public static class MainMenuScreen
 
     private static void OnNewGameAction()
     {
-        Helpers.ChangeView("MainMenuScreen:NewGameView");
+        Helpers.ChangeView("MainMenu:NewGameView");
     }
 }

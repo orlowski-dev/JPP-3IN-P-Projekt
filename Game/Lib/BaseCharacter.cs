@@ -1,3 +1,5 @@
+using System.Runtime.InteropServices.Marshalling;
+
 namespace Game.Lib;
 
 public abstract class BaseCharacter(
@@ -15,4 +17,33 @@ public abstract class BaseCharacter(
     public int Health { get; set; } = health;
     public int Attack { get; set; } = attack;
     public int Level { get; set; } = level;
+
+    protected Dictionary<string, string> GetBaseStats()
+    {
+        return new Dictionary<string, string>
+        {
+            { "Klasa", ClassName },
+            { "Opis", Description },
+            { "HP", Health.ToString() },
+            { "Atak", Attack.ToString() },
+            { "Poziom", Level.ToString() },
+        };
+    }
+
+    public void PrintBaseStats()
+    {
+        foreach (var stat in GetBaseStats())
+        {
+            Console.WriteLine($"{stat.Key}: {stat.Value}");
+        }
+    }
+
+    protected virtual void PrintStats(Dictionary<string, string>? extra = null)
+    {
+        var stats = Helpers.ConcatTwoDicts(GetBaseStats(), extra);
+        foreach (var stat in stats)
+        {
+            Console.WriteLine($"{stat.Key}: {stat.Value}");
+        }
+    }
 }

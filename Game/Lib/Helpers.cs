@@ -111,4 +111,31 @@ public static class Helpers
         Globals.InitialData = initDataFromFile;
         return true;
     }
+
+    public static Dictionary<string, string> ConcatTwoDicts(
+        Dictionary<string, string> d1,
+        Dictionary<string, string>? d2
+    )
+    {
+        var finalDict = new Dictionary<string, string>();
+
+        if (d2 != null)
+        {
+            finalDict = d1.Concat(d2).ToDictionary(x => x.Key, x => x.Value);
+            return finalDict;
+        }
+
+        return d1;
+    }
+
+    public static int GetInputInRange(int start, int stop, string? message = null)
+    {
+        var prompt = message ?? $"[{start}-{stop}]> ";
+        int input;
+        do
+        {
+            input = GetInput<int>(prompt);
+        } while (input < start || input > stop);
+        return input;
+    }
 }
