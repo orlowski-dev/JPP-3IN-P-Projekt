@@ -1,5 +1,3 @@
-using System.Runtime.InteropServices.Marshalling;
-
 namespace Game.Lib;
 
 public abstract class BaseCharacter(
@@ -38,12 +36,19 @@ public abstract class BaseCharacter(
         }
     }
 
-    protected virtual void PrintStats(Dictionary<string, string>? extra = null)
+    protected void PrintStatsBase(Dictionary<string, string>? extra = null)
     {
         var stats = Helpers.ConcatTwoDicts(GetBaseStats(), extra);
         foreach (var stat in stats)
         {
             Console.WriteLine($"{stat.Key}: {stat.Value}");
         }
+    }
+
+    protected virtual void ScaleStats()
+    {
+        MaxHealth += 50 * Level;
+        Health = MaxHealth;
+        Attack += 16 * Level;
     }
 }

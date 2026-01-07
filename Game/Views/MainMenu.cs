@@ -7,7 +7,8 @@ public static class MainMenu
 {
     public static void WelcomeView()
     {
-        Console.WriteLine("Gra RPG");
+        // Console.WriteLine("Gra RPG");
+        Helpers.PrintTitle("Gra RPG");
         var options = new List<MenuOption>
         {
             new("1", "Kontynuuj grę", () => { }),
@@ -22,7 +23,8 @@ public static class MainMenu
 
     public static void NewGameView()
     {
-        Console.WriteLine("Rozpocznij nową grę");
+        // Console.WriteLine("Rozpocznij nową grę");
+        Helpers.PrintTitle("Rozpocznij nową grę");
         var count = Globals.InitialData!.PlayerCharacters.Count;
         for (var i = 0; i < count; i++)
         {
@@ -31,8 +33,19 @@ public static class MainMenu
             p.PrintBaseStats();
             Console.WriteLine();
         }
-        Console.WriteLine("Wybierz klasę postaci");
-        var input = Helpers.GetInputInRange(1, count);
+        Console.WriteLine("Wybierz klasę postaci..");
+        var cIdx = Helpers.GetInputInRange(1, count);
+        var selectedCharacter = Globals.InitialData.PlayerCharacters[cIdx - 1];
+        Console.WriteLine($"Wybrana klasa: {selectedCharacter.ClassName}");
+        Console.WriteLine("Podaj nazwę postaci..");
+        string cName;
+        do
+        {
+            cName = Helpers.GetInput<string>("conajmniej 3 znaki");
+        } while (cName.Length < 3);
+        selectedCharacter.Name = cName;
+        Globals.PlayerCharacter = selectedCharacter;
+        Helpers.ChangeView("OpenWorld:MainView");
     }
 
     private static void OnExitGameAction()

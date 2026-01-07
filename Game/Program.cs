@@ -7,6 +7,7 @@ class Program
 {
     static void Main(string[] args)
     {
+        Console.Clear();
         var initDataLoaded = Helpers.LoadInitData();
         if (!initDataLoaded)
             return;

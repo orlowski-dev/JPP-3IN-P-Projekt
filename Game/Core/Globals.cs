@@ -8,4 +8,6 @@ public static class Globals
     public static Boolean ExitGame { get; set; } = false;
     public static String View { get; set; } = "MainMenu:WelcomeView";
     public static InitialData? InitialData { get; set; }
+    public static PlayerCharacter? PlayerCharacter { get; set; }
+    public static CombatSession? CombatSession { get; set; }
 }

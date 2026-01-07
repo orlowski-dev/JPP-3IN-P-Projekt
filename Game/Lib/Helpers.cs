@@ -12,7 +12,8 @@ public static class Helpers
         {
             try
             {
-                var prompt = message ?? "> ";
+                var prompt = message + "> " ?? "> ";
+
                 Console.Write(prompt);
                 var buff =
                     Console.ReadLine()
@@ -53,7 +54,8 @@ public static class Helpers
             var selectedCommand = options.Find((obj) => obj.Command == command);
             if (selectedCommand == null)
             {
-                Console.WriteLine("Nieznane polecenie!");
+                Console.Clear();
+                Console.WriteLine($"Nieznane polecenie.");
                 return;
             }
             selectedCommand.Action.Invoke();
@@ -63,7 +65,6 @@ public static class Helpers
 
     public static (string, string) GetViewClassAndMethod(string view)
     {
-        var v = view.Trim();
         var splitted = view.Split(":");
         if (splitted.Length != 2)
         {
@@ -130,12 +131,30 @@ public static class Helpers
 
     public static int GetInputInRange(int start, int stop, string? message = null)
     {
-        var prompt = message ?? $"[{start}-{stop}]> ";
+        var prompt = message ?? $"[{start}-{stop}]";
         int input;
         do
         {
             input = GetInput<int>(prompt);
         } while (input < start || input > stop);
         return input;
+    }
+
+    public static void PrintTitle(string title)
+    {
+        var line = new string('-', Console.WindowWidth - title.Length - 8);
+        Console.WriteLine($"----< {title} >{line}");
+        Console.WriteLine();
+    }
+
+    public static bool GetActionConfirmation()
+    {
+        string input;
+        do
+        {
+            input = GetInput<string>("yes/no");
+        } while (input != "yes" && input != "no");
+
+        return input == "yes" ? true : false;
     }
 }
