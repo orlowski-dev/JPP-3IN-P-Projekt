@@ -51,4 +51,10 @@ public abstract class BaseCharacter(
         Health = MaxHealth;
         Attack += 16 * Level;
     }
+
+    public int TakeDamage(int damage)
+    {
+        Health -= damage;
+        return damage;
+    }
 }

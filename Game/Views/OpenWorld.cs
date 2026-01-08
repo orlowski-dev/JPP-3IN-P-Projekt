@@ -18,8 +18,14 @@ public static class OpenWorld
     {
         // Console.WriteLine("Jaki jest Twój następny krok?");
         Helpers.PrintTitle("Jaki jest Twój następny krok?");
-        var command = Helpers.GetInput<string>();
-        Helpers.ExecuteCommand(command, ref options);
+        while (true)
+        {
+            var command = Helpers.GetInput<string>();
+            if (Helpers.ExecuteCommand(command, ref options))
+            {
+                return;
+            }
+        }
     }
 
     private static void OnHelpAction()

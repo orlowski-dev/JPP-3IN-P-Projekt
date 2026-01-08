@@ -21,7 +21,7 @@ class Program
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
+                Helpers.PrintException(e);
                 Globals.ExitGame = true;
             }
         }

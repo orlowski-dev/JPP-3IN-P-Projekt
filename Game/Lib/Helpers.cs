@@ -6,6 +6,18 @@ namespace Game.Lib;
 
 public static class Helpers
 {
+    public static void PrintException(Exception e)
+    {
+        if (Globals.Debug)
+        {
+            Console.WriteLine(e);
+        }
+        else
+        {
+            Console.WriteLine(e.Message);
+        }
+    }
+
     public static T GetInput<T>(string? message = null)
     {
         while (true)
@@ -23,8 +35,7 @@ public static class Helpers
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
-                Globals.ExitGame = true;
+                PrintException(e);
             }
         }
     }
@@ -42,25 +53,21 @@ public static class Helpers
         }
         catch (Exception e)
         {
-            Console.WriteLine(e);
+            PrintException(e);
             Globals.ExitGame = true;
         }
     }
 
-    public static void ExecuteCommand(string command, ref List<MenuOption> options)
+    public static bool ExecuteCommand(string command, ref List<MenuOption> options)
     {
-        while (true)
+        var selectedCommand = options.Find((obj) => obj.Command == command);
+        if (selectedCommand == null)
         {
-            var selectedCommand = options.Find((obj) => obj.Command == command);
-            if (selectedCommand == null)
-            {
-                Console.Clear();
-                Console.WriteLine($"Nieznane polecenie.");
-                return;
-            }
-            selectedCommand.Action.Invoke();
-            break;
+            Console.WriteLine($"Nieznane polecenie.");
+            return false;
         }
+        selectedCommand.Action.Invoke();
+        return true;
     }
 
     public static (string, string) GetViewClassAndMethod(string view)

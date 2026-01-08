@@ -17,8 +17,14 @@ public static class MainMenu
             new("0", "Wyjdź z gry", OnExitGameAction),
         };
         Helpers.PrintMenuOptions(ref options);
-        var input = Helpers.GetInput<string>();
-        Helpers.ExecuteCommand(input, ref options);
+        while (true)
+        {
+            var input = Helpers.GetInput<string>();
+            if (Helpers.ExecuteCommand(input, ref options))
+            {
+                return;
+            }
+        }
     }
 
     public static void NewGameView()
