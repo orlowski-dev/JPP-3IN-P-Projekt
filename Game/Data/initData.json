@@ -9,7 +9,7 @@
       "Description": "Do\u015Bwiadczony \u017Co\u0142nierz, walcz\u0105cy w zwarciu. Wytrzyma\u0142y i stabilny.",
       "MaxHealth": 120,
       "Health": 120,
-      "Attack": 15,
+      "Attack": 30,
       "Level": 1
     },
     {
@@ -21,7 +21,7 @@
       "Description": "Mistrz walki dystansowej, polega na refleksie i precyzji.",
       "MaxHealth": 90,
       "Health": 90,
-      "Attack": 17,
+      "Attack": 34,
       "Level": 1
     },
     {
@@ -33,7 +33,7 @@
       "Description": "Uczony mag, który poświęcił ciało na rzecz potężnej magii.",
       "MaxHealth": 70,
       "Health": 70,
-      "Attack": 25,
+      "Attack": 40,
       "Level": 1
     },
     {
@@ -45,7 +45,7 @@
       "Description": "Złodziej i zabójca, który atakuje szybko i bez ostrzeżenia.",
       "MaxHealth": 85,
       "Health": 85,
-      "Attack": 18,
+      "Attack": 36,
       "Level": 1
     }
   ],
@@ -78,7 +78,7 @@
       "ClassName": "Wilk",
       "Description": "Szybki i agresywny przeciwnik.",
       "MaxHealth": 80,
-      "Health": 90,
+      "Health": 80,
       "Attack": 11,
       "Level": 1
     },

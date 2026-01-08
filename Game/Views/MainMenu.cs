@@ -50,7 +50,7 @@ public static class MainMenu
             cName = Helpers.GetInput<string>("conajmniej 3 znaki");
         } while (cName.Length < 3);
         selectedCharacter.Name = cName;
-        Globals.PlayerCharacter = selectedCharacter;
+        Globals.GameSession = new GameSession(selectedCharacter);
         Helpers.ChangeView("OpenWorld:MainView");
     }
 

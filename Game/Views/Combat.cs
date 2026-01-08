@@ -7,7 +7,7 @@ public static class Combat
 {
     public static void MainView()
     {
-        if (Globals.CombatSession == null || Globals.PlayerCharacter == null)
+        if (Globals.CombatSession == null || Globals.GameSession == null)
             throw new Exception("CombatSession lub/i PlayerCharacter są null!");
 
         if (Globals.CombatSession.Status != CombatStatus.During)
@@ -19,7 +19,7 @@ public static class Combat
         var whoseTurn = Globals.CombatSession.PlayerTurn ? "gracza" : "przeciwnika";
         Helpers.PrintTitle($"Walka - tura {whoseTurn}");
 
-        Console.WriteLine($"HP Gracz: {Globals.PlayerCharacter.Health}");
+        Console.WriteLine($"HP Gracz: {Globals.GameSession.PlayerCharacter.Health}");
         Console.WriteLine($"HP Przeciwnik: {Globals.CombatSession.Enemy.Health}");
         Console.WriteLine();
 
@@ -45,7 +45,7 @@ public static class Combat
                     Console.WriteLine("Atakowanie przeciwnika..");
                     Thread.Sleep(Globals.ConsoleSleepTime);
                     var damage = Globals.CombatSession!.Attack(
-                        Globals.PlayerCharacter!,
+                        Globals.GameSession!.PlayerCharacter!,
                         Globals.CombatSession.Enemy!
                     );
                     Console.WriteLine($"Zadano {damage} obrażeń przeciwnikowi.");
@@ -100,7 +100,7 @@ public static class Combat
         Thread.Sleep(Globals.ConsoleSleepTime);
         var damage = Globals.CombatSession!.Attack(
             Globals.CombatSession.Enemy!,
-            Globals.PlayerCharacter!
+            Globals.GameSession!.PlayerCharacter!
         );
         Console.WriteLine($"Zadano {damage} obrażeń graczowu.");
         Thread.Sleep(Globals.ConsoleSleepTime);
@@ -117,12 +117,24 @@ public static class Combat
         {
             case CombatStatus.PlayerWon:
                 Console.WriteLine("Pokonano przeciwnika!");
-                Console.WriteLine(
-                    $"Nagroda za walkę: {Globals.CombatSession.Enemy.GoldReward} sztuk złota i {Globals.CombatSession.Enemy.GoldReward} punktów doświadczenia."
-                );
+
+                // get random item
+                var drop = Globals.InitialData!.Items[
+                    new Random().Next(0, Globals.InitialData.Items.Count)
+                ];
+                drop.SetLevel(Globals.GameSession!.PlayerCharacter.Level);
+                Globals.GameSession.Equipment.AddItem(drop);
+                Console.WriteLine();
+                var text = "Nagrody za walkę:";
+                Console.WriteLine(text);
+                Console.WriteLine($"Złoto: {Globals.CombatSession.Enemy.GoldReward}");
+                Console.WriteLine($"Punkty doświadczenia: {Globals.CombatSession.Enemy.ExpReward}");
+                Console.WriteLine($"Przedmiot: {drop.Name}");
                 break;
             case CombatStatus.EnenyWon:
                 Console.WriteLine("Bardzo się starałeś, lecz z gry wyleciałeś.. he he");
+                Globals.CombatSession = null;
+                Globals.GameSession = null;
                 nextView = "MainMenu:WelcomeView";
                 break;
             case CombatStatus.Escaped:

@@ -30,7 +30,7 @@ public class CombatSessionTest
             level: 1
         );
 
-        Globals.PlayerCharacter = player;
+        Globals.GameSession = new GameSession(player);
         Globals.CombatSession = new CombatSession(enemy);
         return (player, enemy);
     }

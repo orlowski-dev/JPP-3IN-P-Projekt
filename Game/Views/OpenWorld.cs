@@ -41,7 +41,7 @@ public static class OpenWorld
         Console.Clear();
         // Console.WriteLine("Statystyki postaci");
         Helpers.PrintTitle("Statystyki postaci");
-        Globals.PlayerCharacter!.PrintStats();
+        Globals.GameSession!.PlayerCharacter!.PrintStats();
         Console.WriteLine();
     }
 
@@ -62,7 +62,10 @@ public static class OpenWorld
             new Random().Next(0, Globals.InitialData.Enemies.Count)
         ];
         randomEnemy.SetLevel(
-            new Random().Next(Globals.PlayerCharacter!.Level, Globals.PlayerCharacter.Level + 2)
+            new Random().Next(
+                Globals.GameSession!.PlayerCharacter!.Level,
+                Globals.GameSession.PlayerCharacter.Level + 2
+            )
         );
 
         Helpers.PrintTitle("Przygotowanie do walki z przeciwnikiem");

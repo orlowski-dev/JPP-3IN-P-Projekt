@@ -49,4 +49,24 @@ public class PlayerCharacter(
         NextLevelReqExp += 50 * Level;
         Gold += 150 * Level;
     }
+
+    public void UseItem(Item item)
+    {
+        if (item.Category == ItemCategory.Armor || item.Category == ItemCategory.Weapon)
+        {
+            MaxHealth += item.HPMod;
+            Attack += item.AttackMod;
+            return;
+        }
+    }
+
+    public void StopUsingItem(Item item)
+    {
+        if (item.Category == ItemCategory.Armor || item.Category == ItemCategory.Weapon)
+        {
+            MaxHealth -= item.HPMod;
+            Attack -= item.AttackMod;
+            return;
+        }
+    }
 }

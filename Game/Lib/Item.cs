@@ -58,4 +58,18 @@ public class Item(
             _ => "Mikstura",
         };
     }
+
+    private void ScaleStats()
+    {
+        Price += 10 * Level * (int)Tier;
+        HPMod += 15 * Level * (int)Tier;
+        AttackMod += 15 * Level * (int)Tier;
+    }
+
+    public void SetLevel(int lvl)
+    {
+        // przy założeniu że level ustawiany jest tylko raz :)
+        Level = lvl;
+        ScaleStats();
+    }
 }
