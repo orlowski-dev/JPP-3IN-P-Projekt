@@ -5,7 +5,7 @@ namespace Game.Test;
 
 public class EquipmentTest
 {
-    public List<Item> InitItems()
+    public static List<Item> InitItems()
     {
         var item1 = new Item(
             name: "",
@@ -28,10 +28,10 @@ public class EquipmentTest
             category: ItemCategory.Weapon
         );
 
-        return new List<Item> { item1, item2 };
+        return [item1, item2];
     }
 
-    public PlayerCharacter GetPlayerCharacter()
+    public static PlayerCharacter GetPlayerCharacter()
     {
         return new(
             name: "",
@@ -56,9 +56,9 @@ public class EquipmentTest
 
         eq.AddItem(items[0]);
         eq.AddItem(items[1]);
-        Assert.Equal(new List<Item> { items[0], items[1] }, eq.Items);
-        eq.RemoveItem(items[0]);
-        Assert.Equal(new List<Item> { items[1] }, eq.Items);
+        Assert.Equal([items[0], items[1]], eq.Items);
+        eq.RemoveItem(items[0].Id);
+        Assert.Equal([items[1]], eq.Items);
     }
 
     [Fact]
@@ -86,20 +86,20 @@ public class EquipmentTest
             eq.AddItem(item);
         }
 
-        eq.SetActiveItem(eq.Items[0]);
-        eq.SetActiveItem(eq.Items[1]);
-        eq.SetActiveItem(eq.Items[2]);
+        eq.SetActiveItem(eq.Items[0].Id);
+        eq.SetActiveItem(eq.Items[1].Id);
+        eq.SetActiveItem(eq.Items[2].Id);
 
         Assert.Equal(items[0], eq.ActiveArmor);
         Assert.Equal(items[2], eq.EquippedWeapon);
         Assert.Equal(102, player.MaxHealth);
         Assert.Equal(12, player.Attack);
 
-        eq.UnsetActiveItem(eq.Items[0]);
+        eq.UnsetActiveItem(eq.Items[0].Id);
         Assert.Null(eq.ActiveArmor);
         Assert.Equal(items[2], eq.EquippedWeapon);
 
-        eq.UnsetActiveItem(eq.Items[2]);
+        eq.UnsetActiveItem(eq.Items[2].Id);
         Assert.Null(eq.EquippedWeapon);
 
         Assert.Equal(100, player.MaxHealth);

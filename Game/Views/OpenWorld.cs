@@ -16,6 +16,7 @@ public static class OpenWorld
 
     public static void MainView()
     {
+        PrintDebugData();
         // Console.WriteLine("Jaki jest Twój następny krok?");
         Helpers.PrintTitle("Jaki jest Twój następny krok?");
         while (true)
@@ -47,6 +48,8 @@ public static class OpenWorld
 
     private static void OnExitGameAction()
     {
+        Globals.CombatSession = null;
+        Globals.GameSession = null;
         Globals.ExitGame = true;
     }
 
@@ -58,15 +61,21 @@ public static class OpenWorld
     private static void OnFightAction()
     {
         Console.Clear();
-        var randomEnemy = Globals.InitialData!.Enemies[
-            new Random().Next(0, Globals.InitialData.Enemies.Count)
-        ];
-        randomEnemy.SetLevel(
-            new Random().Next(
-                Globals.GameSession!.PlayerCharacter!.Level,
-                Globals.GameSession.PlayerCharacter.Level + 2
-            )
-        );
+
+        // TODO: Make it clone!
+        var randomEnemy = Globals
+            .InitialData!.Enemies[new Random().Next(0, Globals.InitialData.Enemies.Count)]
+            .Clone();
+
+        if (Globals.GameSession!.PlayerCharacter.Level > 1)
+        {
+            randomEnemy.SetLevel(
+                new Random().Next(
+                    Globals.GameSession!.PlayerCharacter!.Level,
+                    Globals.GameSession.PlayerCharacter.Level + 2
+                )
+            );
+        }
 
         Helpers.PrintTitle("Przygotowanie do walki z przeciwnikiem");
         randomEnemy.PrintStats();
@@ -80,5 +89,18 @@ public static class OpenWorld
 
         Globals.CombatSession = new CombatSession(randomEnemy);
         Helpers.ChangeView("Combat:MainView");
+    }
+
+    private static void PrintDebugData()
+    {
+        if (!Globals.Debug)
+            return;
+
+        Console.WriteLine(
+            Globals.CombatSession == null ? "combatsession is null" : "combatsession is set"
+        );
+        Console.WriteLine(
+            Globals.GameSession == null ? "gamesession is null" : "gamesession is set"
+        );
     }
 }

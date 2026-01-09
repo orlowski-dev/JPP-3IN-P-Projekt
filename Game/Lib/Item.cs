@@ -28,14 +28,28 @@ public class Item(
 )
 {
     public Guid Id { get; set; } = Guid.NewGuid();
-    public string Name { get; private set; } = name;
-    public string Description { get; private set; } = description;
-    public int Price { get; private set; } = price;
-    public int HPMod { get; private set; } = hPMod;
-    public int AttackMod { get; private set; } = attackMod;
-    public int Level { get; private set; } = level;
-    public ItemTier Tier { get; private set; } = tier;
-    public ItemCategory Category { get; private set; } = category;
+    public string Name { get; set; } = name;
+    public string Description { get; set; } = description;
+    public int Price { get; set; } = price;
+    public int HPMod { get; set; } = hPMod;
+    public int AttackMod { get; set; } = attackMod;
+    public int Level { get; set; } = level;
+    public ItemTier Tier { get; set; } = tier;
+    public ItemCategory Category { get; set; } = category;
+
+    public Item Clone()
+    {
+        return new(
+            name: Name,
+            description: Description,
+            price: Price,
+            hPMod: HPMod,
+            attackMod: AttackMod,
+            level: Level,
+            tier: Tier,
+            category: Category
+        );
+    }
 
     public string GetTier()
     {

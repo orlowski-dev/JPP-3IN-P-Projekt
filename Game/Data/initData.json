@@ -56,7 +56,9 @@
       "MaxHealth": 30,
       "Health": 30,
       "Attack": 5,
-      "Level": 1
+      "Level": 1,
+      "ExpReward": 25,
+      "GoldReward": 50
     },
     {
       "ClassName": "Goblin",
@@ -64,7 +66,9 @@
       "MaxHealth": 60,
       "Health": 60,
       "Attack": 7,
-      "Level": 1
+      "Level": 1,
+      "ExpReward": 50,
+      "GoldReward": 100
     },
     {
       "ClassName": "Bandyta",
@@ -72,7 +76,9 @@
       "MaxHealth": 90,
       "Health": 90,
       "Attack": 9,
-      "Level": 1
+      "Level": 1,
+      "ExpReward": 100,
+      "GoldReward": 150
     },
     {
       "ClassName": "Wilk",
@@ -80,7 +86,9 @@
       "MaxHealth": 80,
       "Health": 80,
       "Attack": 11,
-      "Level": 1
+      "Level": 1,
+      "ExpReward": 150,
+      "GoldReward": 200
     },
     {
       "ClassName": "Ork",
@@ -88,7 +96,9 @@
       "MaxHealth": 140,
       "Health": 140,
       "Attack": 30,
-      "Level": 1
+      "Level": 1,
+      "ExpReward": 250,
+      "GoldReward": 350
     }
   ],
   "Items": [

@@ -4,10 +4,10 @@ namespace Game.Lib;
 
 public class Equipment
 {
-    public List<Item> Items { get; set; } = new List<Item>();
+    public List<Item> Items { get; set; } = [];
     public Item? ActiveArmor { get; set; }
     public Item? EquippedWeapon { get; set; }
-    private PlayerCharacter _player;
+    private readonly PlayerCharacter _player;
 
     public Equipment(GameSession gameSession)
     {
@@ -25,13 +25,16 @@ public class Equipment
         Items.Add(item);
     }
 
-    public void RemoveItem(Item item)
+    public void RemoveItem(Guid id)
     {
-        Items = Items.FindAll((i) => i.Id != item.Id);
+        Items = Items.FindAll((i) => i.Id != id);
     }
 
-    public void SetActiveItem(Item item)
+    public void SetActiveItem(Guid id)
     {
+        var item = Items.Find((i) => i.Id == id);
+        if (item == null)
+            return;
         switch (item.Category)
         {
             case ItemCategory.Armor:
@@ -50,13 +53,21 @@ public class Equipment
                 EquippedWeapon = item;
                 _player.UseItem(EquippedWeapon);
                 break;
+            case ItemCategory.Potion:
+                _player.UsePotion(item);
+                RemoveItem(item.Id);
+                break;
             default:
                 throw new Exception("Nieobsługiwana kategoria przedmiotu!");
         }
     }
 
-    public void UnsetActiveItem(Item item)
+    public void UnsetActiveItem(Guid id)
     {
+        var item = Items.Find((i) => i.Id == id);
+        if (item == null)
+            return;
+
         switch (item.Category)
         {
             case ItemCategory.Armor:

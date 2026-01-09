@@ -117,23 +117,13 @@ public static class Combat
         {
             case CombatStatus.PlayerWon:
                 Console.WriteLine("Pokonano przeciwnika!");
-
-                // get random item
-                var drop = Globals.InitialData!.Items[
-                    new Random().Next(0, Globals.InitialData.Items.Count)
-                ];
-                drop.SetLevel(Globals.GameSession!.PlayerCharacter.Level);
-                Globals.GameSession.Equipment.AddItem(drop);
                 Console.WriteLine();
-                var text = "Nagrody za walkę:";
-                Console.WriteLine(text);
-                Console.WriteLine($"Złoto: {Globals.CombatSession.Enemy.GoldReward}");
-                Console.WriteLine($"Punkty doświadczenia: {Globals.CombatSession.Enemy.ExpReward}");
-                Console.WriteLine($"Przedmiot: {drop.Name}");
+                Console.WriteLine("Nagrody za walkę:");
+                Console.WriteLine();
+                Globals.CombatSession = null;
                 break;
             case CombatStatus.EnenyWon:
                 Console.WriteLine("Bardzo się starałeś, lecz z gry wyleciałeś.. he he");
-                Globals.CombatSession = null;
                 Globals.GameSession = null;
                 nextView = "MainMenu:WelcomeView";
                 break;
@@ -142,6 +132,7 @@ public static class Combat
                 break;
         }
 
+        Globals.CombatSession = null;
         Console.WriteLine();
         Console.WriteLine("Wciśnij ENTER aby kontynuować..");
         Console.ReadLine();

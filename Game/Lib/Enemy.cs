@@ -14,6 +14,20 @@ public class Enemy(
     public int GoldReward { get; set; } = goldReward;
     public int ExpReward { get; set; } = expReward;
 
+    public Enemy Clone()
+    {
+        return new(
+            className: ClassName,
+            description: Description,
+            maxHealth: MaxHealth,
+            health: Health,
+            attack: Attack,
+            level: Level,
+            goldReward: GoldReward,
+            expReward: ExpReward
+        );
+    }
+
     public void SetLevel(int lvl)
     {
         Level = lvl;

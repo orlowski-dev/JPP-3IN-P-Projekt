@@ -18,6 +18,22 @@ public class PlayerCharacter(
     public int Exp { get; set; } = exp;
     public int NextLevelReqExp { get; set; } = nextLevelReqExp;
 
+    public PlayerCharacter Clone()
+    {
+        return new(
+            name: Name,
+            gold: Gold,
+            exp: Exp,
+            nextLevelReqExp: NextLevelReqExp,
+            className: ClassName,
+            description: Description,
+            maxHealth: MaxHealth,
+            health: Health,
+            attack: Attack,
+            level: Level
+        );
+    }
+
     public void PrintStats()
     {
         PrintStatsBase(
@@ -39,8 +55,14 @@ public class PlayerCharacter(
             {
                 Level += 1;
                 ScaleStats();
+                Health = MaxHealth;
             }
         }
+    }
+
+    public void AddGold(int amount)
+    {
+        Gold += amount;
     }
 
     protected override void ScaleStats()
@@ -68,5 +90,12 @@ public class PlayerCharacter(
             Attack -= item.AttackMod;
             return;
         }
+    }
+
+    public void UsePotion(Item item)
+    {
+        var missingHP = MaxHealth - Health;
+        var healedHP = Math.Min(missingHP, item.HPMod);
+        Health += healedHP;
     }
 }

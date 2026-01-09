@@ -41,7 +41,7 @@ public static class MainMenu
         }
         Console.WriteLine("Wybierz klasę postaci..");
         var cIdx = Helpers.GetInputInRange(1, count);
-        var selectedCharacter = Globals.InitialData.PlayerCharacters[cIdx - 1];
+        var selectedCharacter = Globals.InitialData.PlayerCharacters[cIdx - 1].Clone();
         Console.WriteLine($"Wybrana klasa: {selectedCharacter.ClassName}");
         Console.WriteLine("Podaj nazwę postaci..");
         string cName;

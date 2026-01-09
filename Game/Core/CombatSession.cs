@@ -74,4 +74,18 @@ public class CombatSession(Enemy enemy)
             return false;
         }
     }
+
+    public void AddRewardsForPlayer()
+    {
+        var drop = Globals
+            .InitialData!.Items[new Random().Next(0, Globals.InitialData.Items.Count)]
+            .Clone();
+        drop.SetLevel(Globals.GameSession!.PlayerCharacter.Level);
+        Globals.GameSession.Equipment.AddItem(drop);
+        Globals.GameSession.PlayerCharacter.AddExp(Enemy.ExpReward);
+        Globals.GameSession.PlayerCharacter.AddGold(Enemy.GoldReward);
+        Console.WriteLine($"Złoto: {Enemy.GoldReward}");
+        Console.WriteLine($"Punkty doświadczenia: {Enemy.ExpReward}");
+        Console.WriteLine($"Przedmiot: {drop.Name}");
+    }
 }
