@@ -86,4 +86,36 @@ public class Item(
         Level = lvl;
         ScaleStats();
     }
+
+    public void PrintStats(bool printPrice = false)
+    {
+        var stats = new Dictionary<string, string>
+        {
+            { "Nazwa", Name },
+            { "Opis", Description },
+            { "Tier", GetTier() },
+            { "Kategoria", GetCategory() },
+            { "Poziom", Level.ToString() },
+        };
+
+        if (HPMod > 0)
+        {
+            stats.Add("HP", $"+{HPMod}");
+        }
+
+        if (AttackMod > 0)
+        {
+            stats.Add("Atak", $"+{AttackMod}");
+        }
+
+        if (printPrice)
+        {
+            stats.Add("Cena", $"{Price} sztuk złota");
+        }
+
+        foreach (var stat in stats)
+        {
+            Console.WriteLine($"{stat.Key}: {stat.Value}");
+        }
+    }
 }

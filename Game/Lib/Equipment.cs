@@ -88,4 +88,9 @@ public class Equipment
                 throw new Exception("Nieobsługiwana kategoria przedmiotu!");
         }
     }
+
+    public List<Item> GetNonActiveItems()
+    {
+        return Items.FindAll((i) => i != ActiveArmor && i != EquippedWeapon);
+    }
 }

@@ -4,10 +4,10 @@ namespace Game.Core;
 
 public class GameSession
 {
-    public GameSession(PlayerCharacter playerCharacter)
+    public GameSession(PlayerCharacter playerCharacter, Equipment? eq = null)
     {
         PlayerCharacter = playerCharacter;
-        Equipment = new Equipment(this);
+        Equipment = eq ?? new Equipment(this);
     }
 
     public PlayerCharacter PlayerCharacter { get; set; }

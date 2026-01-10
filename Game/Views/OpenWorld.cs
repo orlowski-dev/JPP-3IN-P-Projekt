@@ -10,13 +10,14 @@ public static class OpenWorld
         new("help", "Wyświetla stronę pomocy.", OnHelpAction),
         new("stats", "Wyświetla statystyki postaci.", OnStatsPrintAction),
         new("fight", "Rozpocznij walkę z losowym przeciwnikiem.", OnFightAction),
+        new("eq", "Otwórz ekwipunek.", OnOpenEqAction),
         new("menu", "Wyjdź do menu.", OnExitToMenuAction),
         new("exit", "Zakończ grę", OnExitGameAction),
     ];
 
     public static void MainView()
     {
-        PrintDebugData();
+        // PrintDebugData();
         // Console.WriteLine("Jaki jest Twój następny krok?");
         Helpers.PrintTitle("Jaki jest Twój następny krok?");
         while (true)
@@ -102,5 +103,10 @@ public static class OpenWorld
         Console.WriteLine(
             Globals.GameSession == null ? "gamesession is null" : "gamesession is set"
         );
+    }
+
+    private static void OnOpenEqAction()
+    {
+        Helpers.ChangeView("Inventory:MainView");
     }
 }
