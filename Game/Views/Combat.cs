@@ -14,6 +14,7 @@ public static class Combat
             "Spróbuj uciec z walki. Powodzenie kończy walkę bez przyznawania nagród. Niepowodzenie skutkuje koniec tury.",
             OnEscapeAction
         ),
+        new("heal", "Użyj przedmiotu leczącego", OnUseHealPotion),
         new("help", "Wyświetl pomoc.", OnHelpAction),
     ];
 
@@ -43,6 +44,20 @@ public static class Combat
         {
             OnEnemyTurn();
         }
+    }
+
+    private static void OnUseHealPotion()
+    {
+        var eq = Globals.GameSession!.Equipment;
+        var potions = eq.GetItemsByCategory(ItemCategory.Potion);
+        if (potions.Count == 0)
+        {
+            Console.WriteLine("Nie masz przedmiotu leczącego!");
+            return;
+        }
+
+        eq.SetActiveItem(potions[0].Id);
+        Console.WriteLine("Uzyto przedmiotu leczącego!");
     }
 
     private static void OnPlayerTurn()

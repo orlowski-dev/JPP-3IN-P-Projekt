@@ -15,6 +15,7 @@ public static class Inventory
 
     public static void MainView()
     {
+        Console.Clear();
         Helpers.PrintTitle("Ekwipunek");
         PrintActiveItems();
         Console.WriteLine();

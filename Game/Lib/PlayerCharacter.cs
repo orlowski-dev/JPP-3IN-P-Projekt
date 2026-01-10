@@ -65,6 +65,11 @@ public class PlayerCharacter(
         Gold += amount;
     }
 
+    public void SubstractGold(int amount)
+    {
+        Gold -= amount;
+    }
+
     protected override void ScaleStats()
     {
         base.ScaleStats();

@@ -11,6 +11,7 @@ public static class OpenWorld
         new("stats", "Wyświetla statystyki postaci.", OnStatsPrintAction),
         new("fight", "Rozpocznij walkę z losowym przeciwnikiem.", OnFightAction),
         new("eq", "Otwórz ekwipunek.", OnOpenEqAction),
+        new("shop", "Odwiedź sklep w mieście.", OnGoToShopAction),
         new("menu", "Wyjdź do menu.", OnExitToMenuAction),
         new("exit", "Zakończ grę", OnExitGameAction),
     ];
@@ -92,21 +93,26 @@ public static class OpenWorld
         Helpers.ChangeView("Combat:MainView");
     }
 
-    private static void PrintDebugData()
-    {
-        if (!Globals.Debug)
-            return;
+    // private static void PrintDebugData()
+    // {
+    //     if (!Globals.Debug)
+    //         return;
 
-        Console.WriteLine(
-            Globals.CombatSession == null ? "combatsession is null" : "combatsession is set"
-        );
-        Console.WriteLine(
-            Globals.GameSession == null ? "gamesession is null" : "gamesession is set"
-        );
-    }
+    //     Console.WriteLine(
+    //         Globals.CombatSession == null ? "combatsession is null" : "combatsession is set"
+    //     );
+    //     Console.WriteLine(
+    //         Globals.GameSession == null ? "gamesession is null" : "gamesession is set"
+    //     );
+    // }
 
     private static void OnOpenEqAction()
     {
         Helpers.ChangeView("Inventory:MainView");
+    }
+
+    private static void OnGoToShopAction()
+    {
+        Helpers.ChangeView("Shop:MainView");
     }
 }

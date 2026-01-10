@@ -93,4 +93,9 @@ public class Equipment
     {
         return Items.FindAll((i) => i != ActiveArmor && i != EquippedWeapon);
     }
+
+    public List<Item> GetItemsByCategory(ItemCategory category)
+    {
+        return Items.FindAll((item) => item.Category == category);
+    }
 }
