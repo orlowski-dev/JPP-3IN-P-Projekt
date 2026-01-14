@@ -5,7 +5,7 @@ namespace Game.Test;
 
 public class CombatSessionTest
 {
-    private (PlayerCharacter, Enemy) Init()
+    private static (PlayerCharacter, Enemy) Init()
     {
         var player = new PlayerCharacter(
             name: "",
@@ -32,6 +32,7 @@ public class CombatSessionTest
 
         Globals.GameSession = new GameSession(player);
         Globals.CombatSession = new CombatSession(enemy);
+        Helpers.LoadInitData();
         return (player, enemy);
     }
 

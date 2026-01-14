@@ -111,9 +111,17 @@ public static class Helpers
         }
     }
 
+    public static string CombinePath(string path)
+    {
+        var currentDir = Directory.GetCurrentDirectory();
+        return Path.Combine(currentDir, path);
+    }
+
     public static bool LoadInitData()
     {
-        var initDataFromFile = GetObjectFromJsonFile<InitialData>("Data/initData.json");
+        var initDataFromFile = GetObjectFromJsonFile<InitialData>(
+            CombinePath("Data/initData.json")
+        );
         if (initDataFromFile == null)
             return false;
         Globals.InitialData = initDataFromFile;

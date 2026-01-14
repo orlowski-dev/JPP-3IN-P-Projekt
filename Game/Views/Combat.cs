@@ -17,6 +17,7 @@ public static class Combat
         new("heal", "Użyj przedmiotu leczącego", OnUseHealPotion),
         new("help", "Wyświetl pomoc.", OnHelpAction),
     ];
+    private static event RefreshShopEventHandler? _rseh;
 
     public static void MainView()
     {
@@ -92,6 +93,8 @@ public static class Combat
 
     public static void SummaryView()
     {
+        _rseh += Shop.RefreshShop;
+
         Helpers.PrintTitle("Podsumowanie walki");
 
         var nextView = "OpenWorld:MainView";
@@ -105,6 +108,7 @@ public static class Combat
                 Globals.CombatSession.AddRewardsForPlayer();
                 Console.WriteLine();
                 Globals.CombatSession = null;
+                NotifyShopRefresh();
                 break;
             case CombatStatus.EnenyWon:
                 Console.WriteLine("Bardzo się starałeś, lecz z gry wyleciałeś.. he he");
@@ -121,6 +125,7 @@ public static class Combat
         Console.WriteLine("Wciśnij ENTER aby kontynuować..");
         Console.ReadLine();
         Helpers.ChangeView(nextView);
+        _rseh -= Shop.RefreshShop;
     }
 
     private static void OnAttackAcction()
@@ -160,5 +165,10 @@ public static class Combat
             Thread.Sleep(Globals.ConsoleSleepTime);
             return;
         }
+    }
+
+    private static void NotifyShopRefresh()
+    {
+        _rseh?.Invoke();
     }
 }

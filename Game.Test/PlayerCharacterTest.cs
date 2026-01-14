@@ -4,7 +4,7 @@ namespace Game.Test;
 
 public class PlayerCharacterTest
 {
-    public PlayerCharacter GetPlayerCharacter()
+    public static PlayerCharacter GetPlayerCharacter()
     {
         return new(
             name: "",

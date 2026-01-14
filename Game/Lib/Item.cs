@@ -27,7 +27,7 @@ public class Item(
     ItemCategory category
 )
 {
-    public Guid Id { get; set; } = Guid.NewGuid();
+    public Guid Id { get; } = Guid.NewGuid();
     public string Name { get; set; } = name;
     public string Description { get; set; } = description;
     public int Price { get; set; } = price;

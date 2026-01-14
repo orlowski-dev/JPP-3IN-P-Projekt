@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using Game.Core;
 
 namespace Game.Lib;
@@ -7,8 +8,17 @@ public class Equipment
     public List<Item> Items { get; set; } = [];
     public Item? ActiveArmor { get; set; }
     public Item? EquippedWeapon { get; set; }
-    private readonly PlayerCharacter _player;
 
+    private readonly PlayerCharacter? _player;
+
+    // konstrukor dla json
+    [JsonConstructor]
+    public Equipment()
+    {
+        _player = null;
+    }
+
+    // konsturktor dla GameSession
     public Equipment(GameSession gameSession)
     {
         if (gameSession == null)
@@ -32,6 +42,10 @@ public class Equipment
 
     public void SetActiveItem(Guid id)
     {
+        if (_player == null)
+        {
+            throw new Exception("_player jest null!");
+        }
         var item = Items.Find((i) => i.Id == id);
         if (item == null)
             return;
@@ -64,6 +78,11 @@ public class Equipment
 
     public void UnsetActiveItem(Guid id)
     {
+        if (_player == null)
+        {
+            throw new Exception("_player jest null!");
+        }
+
         var item = Items.Find((i) => i.Id == id);
         if (item == null)
             return;
