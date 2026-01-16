@@ -12,6 +12,7 @@ public static class OpenWorld
         new("fight", "Rozpocznij walkę z losowym przeciwnikiem.", OnFightAction),
         new("eq", "Otwórz ekwipunek.", OnOpenEqAction),
         new("shop", "Odwiedź sklep w mieście.", OnGoToShopAction),
+        new("save", "Zapisz stan rozgrywki.", OnSaveGameAction),
         new("menu", "Wyjdź do menu.", OnExitToMenuAction),
         new("exit", "Zakończ grę", OnExitGameAction),
     ];
@@ -114,5 +115,17 @@ public static class OpenWorld
     private static void OnGoToShopAction()
     {
         Helpers.ChangeView("Shop:MainView");
+    }
+
+    private static void OnSaveGameAction()
+    {
+        var (saved, _, _, id) = SaveSystem.SaveGame();
+        if (saved)
+        {
+            Console.Clear();
+            Globals.GameSettings.LastSaveId = id;
+            GameSettings.SaveSettings();
+            Console.WriteLine("Zapisano.");
+        }
     }
 }

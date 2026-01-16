@@ -82,9 +82,12 @@ public static class Helpers
         return (splitted[0], splitted[1]);
     }
 
-    public static void ChangeView(string view)
+    public static void ChangeView(string view, bool clear = true)
     {
-        Console.Clear();
+        if (clear)
+        {
+            Console.Clear();
+        }
         Globals.View = view.Trim();
     }
 
@@ -99,28 +102,27 @@ public static class Helpers
     public static T? GetObjectFromJsonFile<T>(string path)
         where T : class
     {
-        try
-        {
-            var jsonContent = File.ReadAllText(path);
-            return JsonSerializer.Deserialize<T>(jsonContent);
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine(e);
+        if (!File.Exists(path))
             return null;
-        }
+        var jsonContent = File.ReadAllText(path);
+        return JsonSerializer.Deserialize<T>(jsonContent);
     }
 
-    public static string CombinePath(string path)
+    public static string CombinePath(string[] path)
     {
         var currentDir = Directory.GetCurrentDirectory();
-        return Path.Combine(currentDir, path);
+        var pathStrings = new List<string> { currentDir };
+        foreach (var p in path)
+        {
+            pathStrings.Add(p);
+        }
+        return Path.Combine([.. pathStrings]);
     }
 
     public static bool LoadInitData()
     {
         var initDataFromFile = GetObjectFromJsonFile<InitialData>(
-            CombinePath("Data/initData.json")
+            CombinePath(["Data", "initData.json"])
         );
         if (initDataFromFile == null)
             return false;
@@ -171,5 +173,17 @@ public static class Helpers
         } while (input != "yes" && input != "no");
 
         return input == "yes" ? true : false;
+    }
+
+    public static bool SaveJsonFile<T>(T data, string[] dirPath, string fileName)
+    {
+        if (!Directory.Exists(CombinePath([.. dirPath])))
+        {
+            return false;
+        }
+
+        var jsonContent = JsonSerializer.Serialize(data);
+        File.WriteAllText(CombinePath([.. dirPath, fileName]), jsonContent);
+        return true;
     }
 }

@@ -3,7 +3,7 @@ using Game.Lib;
 
 namespace Game.Test;
 
-public class EquipmentTest
+public class EquipmentTest : BaseTest
 {
     public static List<Item> InitItems()
     {

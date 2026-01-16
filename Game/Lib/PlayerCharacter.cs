@@ -103,4 +103,9 @@ public class PlayerCharacter(
         var healedHP = Math.Min(missingHP, item.HPMod);
         Health += healedHP;
     }
+
+    public string OneLineDescription()
+    {
+        return $"{Name}, lvl: {Level}";
+    }
 }

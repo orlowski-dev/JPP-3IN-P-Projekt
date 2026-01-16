@@ -9,7 +9,7 @@ public class Equipment
     public Item? ActiveArmor { get; set; }
     public Item? EquippedWeapon { get; set; }
 
-    private readonly PlayerCharacter? _player;
+    private PlayerCharacter? _player;
 
     // konstrukor dla json
     [JsonConstructor]
@@ -116,5 +116,10 @@ public class Equipment
     public List<Item> GetItemsByCategory(ItemCategory category)
     {
         return Items.FindAll((item) => item.Category == category);
+    }
+
+    public void SetPlayer(PlayerCharacter playerCharacter)
+    {
+        _player = playerCharacter;
     }
 }

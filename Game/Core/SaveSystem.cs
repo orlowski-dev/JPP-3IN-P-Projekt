@@ -5,7 +5,7 @@ namespace Game.Core;
 
 public static class SaveSystem
 {
-    private static readonly string SaveDataDir = Helpers.CombinePath("savedata");
+    private static readonly string SaveDataDir = Helpers.CombinePath(["savedata"]);
 
     public static (string, bool) GetSaveDataDirPath(string? dirName = null)
     {
@@ -21,21 +21,22 @@ public static class SaveSystem
 
     /// <summary>
     /// Zapisuje na dysku plik zapisu gry.
-    /// Zwraca - czy zapisano, nazwę pliku zapisu, pełną ścieżkę
+    /// Zwraca - czy zapisano, nazwę pliku zapisu, pełną ścieżkę, id
     /// </summary>
-    public static (bool, string, string) SaveGame(string? dirName = null)
+    public static (bool, string, string, Guid) SaveGame(string? dirName = null)
     {
-        var dn = dirName ?? SaveDataDir;
+        var (sdn, _) = GetSaveDataDirPath(dirName);
+        var dn = sdn;
         var gameSession =
             Globals.GameSession ?? throw new Exception("Globals.GameSession nie istnieje");
 
         var saveData = new SaveData(gameSession);
         var jsonContent = JsonSerializer.Serialize(saveData);
         var (path, _) = GetSaveDataDirPath(dn);
-        var fileName = $"{Guid.NewGuid()}.savedata.json";
+        var fileName = $"{saveData.Id}.savedata.json";
         var filePath = Path.Combine(path, fileName);
         File.WriteAllText(filePath, jsonContent);
-        return (true, fileName, filePath);
+        return (true, fileName, filePath, saveData.Id);
     }
 
     public static SaveData? LoadSaveGameFile(string filePath)
@@ -56,9 +57,9 @@ public static class SaveSystem
 
     public static string[] GetSaveFiles(string? dirName = null)
     {
-        var dn = dirName ?? SaveDataDir;
+        var (sdn, _) = GetSaveDataDirPath(dirName);
+        var dn = sdn;
         var files = Directory.GetFiles(dn);
-        Console.WriteLine(files);
         return files;
     }
 }

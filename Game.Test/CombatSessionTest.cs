@@ -3,7 +3,7 @@ using Game.Lib;
 
 namespace Game.Test;
 
-public class CombatSessionTest
+public class CombatSessionTest : BaseTest
 {
     private static (PlayerCharacter, Enemy) Init()
     {

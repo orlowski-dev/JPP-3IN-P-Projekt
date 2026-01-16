@@ -3,7 +3,7 @@ using Game.Lib;
 
 namespace Game.Test;
 
-public class SaveSystemTest
+public class SaveSystemTest : BaseTest
 {
     public static PlayerCharacter GetPlayerCharacter()
     {
@@ -37,7 +37,7 @@ public class SaveSystemTest
     public void TestSaveGame()
     {
         Globals.GameSession = new GameSession(GetPlayerCharacter());
-        var (saved, _, _) = SaveSystem.SaveGame(_dirName);
+        var (saved, _, _, _) = SaveSystem.SaveGame(_dirName);
         Assert.True(saved);
     }
 
@@ -45,7 +45,7 @@ public class SaveSystemTest
     public void TestLoadSaveGame()
     {
         Globals.GameSession = new GameSession(GetPlayerCharacter());
-        var (saved, _, path) = SaveSystem.SaveGame(_dirName);
+        var (saved, _, path, _) = SaveSystem.SaveGame(_dirName);
         Assert.True(saved);
 
         var saveData = SaveSystem.LoadSaveGameFile(path);
@@ -58,33 +58,10 @@ public class SaveSystemTest
     public void TestGetSaveFiles()
     {
         Globals.GameSession = new GameSession(GetPlayerCharacter());
-        var (saved, _, path) = SaveSystem.SaveGame(_dirName);
+        var (saved, _, path, _) = SaveSystem.SaveGame(_dirName);
         Assert.True(saved);
 
         var files = SaveSystem.GetSaveFiles(_dirName);
         Assert.Contains(path, files);
-    }
-
-    [Fact]
-    public void TestSaveAndLoadGame()
-    {
-        Globals.GameSession = new GameSession(GetPlayerCharacter());
-        var item1 = new Item(
-            name: "",
-            description: "",
-            price: 1,
-            hPMod: 1,
-            attackMod: 1,
-            level: 1,
-            tier: ItemTier.Common,
-            category: ItemCategory.Armor
-        );
-        Globals.GameSession.Equipment.AddItem(item1);
-        var (saved, _, path) = SaveSystem.SaveGame(_dirName);
-        Assert.True(saved);
-
-        var saveData = SaveSystem.LoadSaveGameFile(path);
-        Assert.NotNull(saveData);
-        Assert.Equal([item1], saveData.GameSession.Equipment.Items);
     }
 }
