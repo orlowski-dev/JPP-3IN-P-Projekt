@@ -86,8 +86,8 @@ class Game.Lib.PlayerCharacter {
 
 class Game.Lib.Equipment {
   +Items: Item[]
-  +ActiveArmor: Item
-  +EquippedWeapon: Item
+  +ActiveArmor?: Item
+  +EquippedWeapon?: Item
   +_player?: PlayerCharacter
   +AddItem()
   +RemoveItem()
@@ -275,5 +275,9 @@ class Game.Test.SaveSystemTest {
   +TestSaveGame()
   +TestLoadSaveGame()
   +TestGetSaveFiles()
+}
+
+entity Game.Core.Signals {
+  +RefreshShopEventHandler() {delegate}
 }
 @enduml

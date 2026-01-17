@@ -1,4 +1,87 @@
+class Game.Core.Globals <<static>>
+class Game.Core.GameSession
+enum Game.Core.CombatStatus
+class Game.Core.CombatSession
+class Game.Core.SaveSystem <<static>>
+class Game.Lib.BaseCharacter <<abstract>>
+class Game.Lib.Enemy
+class Game.Lib.PlayerCharacter
+class Game.Lib.Equipment
+class Game.Lib.GameSettings
+class Game.Lib.Helpers
+class Game.Lib.InitalData
+enum Game.Lib.ItemTier
+enum Game.Lib.ItemCategory
+class Game.Lib.Item
+class Game.Lib.MenuOption
+class Game.Lib.SaveData
+class Game.Views.MainMenu <<static>>
+class Game.Views.OpenWorld <<static>>
+class Game.Views.Combat <<static>>
+class Game.Views.Shop <<static>>
+class Game.Views.Inventory <<static>>
+class Game.Test.BaseTest <<abstract>>
+class Game.Test.CombatSessionTest
+class Game.Test.EnemyTest
+class Game.Test.EquipmentTest
+class Game.Test.HelpersTest
+class Game.Test.ItemTest
+class Game.Test.PlayerCharacterTest
+class Game.Test.SaveSystemTest
+entity Game.Core.Signals
+
 Game.Core.Globals ..> Game.Core.GameSession
 Game.Core.Globals ..> Game.Core.CombatSession
-Game.Core.Globals ..> Game.Core.GameSettings
+Game.Core.Globals *-- Game.Core.GameSettings
+Game.Core.Globals --> Game.Lib.InitialData
+Game.Core.GameSession *-- Game.Lib.PlayerCharacter
+Game.Core.GameSession --> Game.Lib.Equipment
+Game.Core.GameSession --> Game.Lib.Item
 Game.Core.CombatSession *-- Game.Core.CombatStatus
+Game.Core.CombatSession *-- Game.Lib.Enemy
+Game.Lib.PlayerCharacter ..|> Game.Lib.BaseCharacter
+Game.Lib.Enemy ..|> Game.Lib.BaseCharacter
+Game.Lib.Equipment *-- Game.Lib.Item
+Game.Lib.Equipment ..> Game.Lib.PlayerCharacter
+Game.Lib.InitalData  *-- Game.Lib.PlayerCharacter
+Game.Lib.InitalData *-- Game.Lib.Enemy
+Game.Lib.InitalData *-- Game.Lib.Item
+Game.Lib.Item *-- Game.Lib.ItemTier
+Game.Lib.Item *-- Game.Lib.ItemCategory
+Game.Lib.SaveData *-- Game.Core.GameSession
+Game.Views.Combat *-- Game.Lib.MenuOption
+Game.Views.Combat -- Game.Core.CombatSession
+Game.Views.Combat -- Game.Core.GameSession
+Game.Views.Combat -- Game.Core.Signals
+Game.Views.Combat -- Game.Lib.Helpers
+Game.Views.Inventory *-- Game.Lib.MenuOption
+Game.Views.Inventory -- Game.Lib.Helpers
+Game.Views.Inventory -- Game.Core.Globals
+Game.Views.MainMenu *-- Game.Lib.MenuOption
+Game.Views.MainMenu -- Game.Lib.Helpers
+Game.Views.MainMenu -- Game.Core.Globals
+Game.Views.OpenWorld *-- Game.Lib.MenuOption
+Game.Views.OpenWorld -- Game.Lib.Helpers
+Game.Views.OpenWorld -- Game.Core.Globals
+Game.Views.Shop *-- Game.Lib.MenuOption
+Game.Views.Shop -- Game.Lib.Helpers
+Game.Views.Shop -- Game.Core.Globals
+Game.Views.Shop -- Game.Core.Signals
+Game.Test.CombatSessionTest ..|> Game.Test.BaseTest
+Game.Test.CombatSessionTest *-- Game.Lib.PlayerCharacter
+Game.Test.CombatSessionTest -- Game.Core.Globals
+Game.Test.CombatSessionTest -- Game.Core.GameSession
+Game.Test.CombatSessionTest -- Game.Core.CombatSession
+Game.Test.EnemyTest -- Game.Lib.Enemy
+Game.Test.EquipmentTest ..|> Game.Test.BaseTest
+Game.Test.EquipmentTest -- Game.Lib.Item
+Game.Test.EquipmentTest -- Game.Lib.PlayerCharacter
+Game.Test.EquipmentTest -- Game.Core.Globals
+Game.Test.HelpersTest -- Game.Lib.Helpers
+Game.Test.ItemTest -- Game.Lib.Item
+Game.Test.PlayerCharacterTest -- Game.Lib.PlayerCharacter
+Game.Test.SaveSystemTest ..|> Game.Test.BaseTest
+Game.Test.SaveSystemTest -- Game.Lib.PlayerCharacter
+Game.Test.SaveSystemTest -- Game.Core.Globals
+Game.Core.CombatSession -- Game.Core.Globals
+Game.Core.GameSession -- Game.Core.Globals
