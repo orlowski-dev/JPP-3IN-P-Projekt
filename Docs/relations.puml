@@ -1,0 +1,4 @@
+Game.Core.Globals ..> Game.Core.GameSession
+Game.Core.Globals ..> Game.Core.CombatSession
+Game.Core.Globals ..> Game.Core.GameSettings
+Game.Core.CombatSession *-- Game.Core.CombatStatus

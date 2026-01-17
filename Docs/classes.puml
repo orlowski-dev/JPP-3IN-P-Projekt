@@ -1,0 +1,279 @@
+@startuml
+class Game.Core.Globals <<static>> {
+  +{static}ViewNamespace: string {readOnly}
+  +{static}ConsoleSleepTime: int {readOnly}
+  +{static}ExitGame: bool
+  +{static}View: string
+  +{static}InitialData?: InitialData
+  +{static}GameSession?: GameSession
+  +{static}CombatSession?: CombatSession
+  +{static}GameSettings: GameSettings
+  +{static}Reset()
+}
+
+class Game.Core.GameSession {
+  +PlayerCharacter: PlayerCharacter
+  +Equipment?: Equipment
+  +ShotItems?: Item[]
+  -{static}InitShop()
+}
+
+enum Game.Core.CombatStatus {
+  During
+  PlayerWon
+  EnenyWon
+  Escaped
+}
+
+class Game.Core.CombatSession {
+  +PlayerTurn: bool
+  +Status: CombatStatus
+  +Enemy: Enemy
+  +NextAttackBlocked: bool
+  +Attack()
+  +BlockAttack()
+  +EscapeCombat()
+  +AddRewardsForPlayer()
+}
+
+class Game.Core.SaveSystem <<static>> {
+  -{static}SaveDataDir: string
+  +{static}GetSaveDataDirPath()
+  +{static}SaveGame()
+  +{static}LoadSaveGameFile()
+  +{static}GetSaveFiles()
+}
+
+class Game.Lib.BaseCharacter <<abstract>> {
+  +ClassName: string
+  +Description: string
+  +MaxHealth: int
+  +Health: int
+  +Attack: int
+  +Level: int
+  #GetBaseStats()
+  +PrintBaseStats()
+  #PrintStatsBase()
+  #ScaleStats() {virtual}
+  +TakeDamage()
+}
+
+class Game.Lib.Enemy {
+  +GoldReward: int
+  +ExpReward: int
+  +Clone()
+  +SetLevel()
+  #ScaleStats() {override}
+  +PrintStats()
+}
+
+class Game.Lib.PlayerCharacter {
+  +Name: string
+  +Gold: int
+  +Exp: int
+  +NextLevelReqExp: int
+  +Clone()
+  +PrintStats()
+  +AddExp()
+  +AddGold()
+  +SubstractGold()
+  #ScaleStats() {override}
+  +UseItem()
+  +StopUsingItem()
+  +UsePotion()
+  +OneLineDescription()
+}
+
+class Game.Lib.Equipment {
+  +Items: Item[]
+  +ActiveArmor: Item
+  +EquippedWeapon: Item
+  +_player?: PlayerCharacter
+  +AddItem()
+  +RemoveItem()
+  +SetActiveItem()
+  +UnsetActiveItem()
+  +GetNonActiveItems()
+  +GetItemsByCategory()
+  +SetPlayer()
+}
+
+class Game.Lib.GameSettings {
+  +LastSaveId?: Guid
+  +LoadGameSettings()
+  +SaveSettings()
+}
+
+class Game.Lib.Helpers {
+ +{static}PrintException()
+ +{static}GetInput()
+ +{static}InvokeStaticMethod()
+ +{static}ExecuteCommand()
+ +{static}GetViewClassAndMethod()
+ +{static}ChangeView()
+ +{static}PrintMenuOptions()
+ +{static}GetObjectFromJsonFile()
+ +{static}CombinePath()
+ +{static}LoadInitData()
+ +{static}GetInputInRange()
+ +{static}PrintTitle()
+ +{static}GetActionConfirmation()
+ +{static}SaveJsonFile()
+}
+
+class Game.Lib.InitalData {
+  +PlayerCharacters: PlayerCharacter[]
+  +Enemies: Enemy[]
+  +Items: Item[]
+}
+
+enum Game.Lib.ItemTier {
+  Common
+  Uncommon
+  Rare,
+  Legendary
+  Mythic
+}
+
+enum Game.Lib.ItemCategory {
+  Weapon
+  Armor
+  Potion
+}
+
+class Game.Lib.Item {
+  +Id: Guid
+  +Name: string
+  +Description: string
+  +Price: int
+  +HPMod: int
+  +AttackMod: int
+  +Level: int
+  +Tier: ItemTier
+  +Category: ItemCategory
+  +Clone()
+  +GetTier()
+  +GetCategory()
+  -ScaleStats()
+  +SetLevel()
+  +PrintStats()
+}
+
+class Game.Lib.MenuOption {
+  +Command: string
+  +Text: string
+  +Action: Action
+}
+
+class Game.Lib.SaveData {
+  +Id: Guid
+  +CreatedAt: DateTime
+  +GameSession: GameSession
+}
+
+class Game.Views.MainMenu <<static>> {
+  +{static}WelcomeView()
+  +{static}NewGameView()
+  -{static}OnExitGameAction()
+  -{static}OnNewGameAction()
+  -{static}OnLoadGameAction()
+  +{static}LoadGameView()
+  -{static}OnContinueGameAction()
+}
+
+class Game.Views.OpenWorld <<static>> {
+  -{static}options: MenuOption[]
+  +{static}MainView()
+  -{static}OnHelpAction()
+  -{static}OnStatsPrintAction()
+  -{static}OnExitGameAction()
+  -{static}OnExitToMenuAction()
+  -{static}OnFightAction()
+  -{static}OnOpenEqAction()
+  -{static}OnGoToShopAction()
+  -{static}OnSaveGameAction()
+}
+
+class Game.Views.Combat <<static>> {
+  -{static}_mainViewOptions: MenuOption[]
+  -{static}_rseh?: RefreshShopEventHandler
+  +{static}MainView()
+  -{static}OnUseHealPotion()
+  -{static}OnPlayerTurn()
+  -{static}OnHelpAction()
+  -{static}OnEnemyTurn()
+  +{static}SummaryView()
+  -{static}OnAttackAcction()
+  -{static}OnBlockAcction()
+  -{static}OnEscapeAction()
+  -{static}NotifyShopRefresh()
+}
+
+class Game.Views.Shop <<static>> {
+  -{static}_mainViewOptions: MenuOption[]
+  +{static}MainView()
+  -{static}OnListItemsAction()
+  -{static}OnHelpAction()
+  -{static}OnBuyItem()
+  +{static}RefreshShop()
+}
+
+class Game.Views.Inventory <<static>> {
+  -{static}_mainViewOptions: MenuOption[]
+  +{static}MainView()
+  -{static}PrintActiveItems()
+  -{static}OnHelpAction()
+  -{static}OnListItems()
+  -{static}OnUseItem()
+  -{static}OnCloseAction()
+}
+
+class Game.Test.BaseTest <<abstract>> {
+  +Dispose()
+}
+
+class Game.Test.CombatSessionTest {
+  -{static}Init()
+  +TestPlayerWon()
+  +TestEnemyWon()
+}
+
+class Game.Test.EnemyTest {
+  +TestSetLevel()
+}
+
+class Game.Test.EquipmentTest {
+  +InitItems()
+  -GetPlayerCharacter()
+  +TestAddAndRemoveItem()
+  +TestSetAndUnsetActiveItem()
+}
+
+class Game.Test.HelpersTest {
+  +TestGetViewClassAndMethod()
+  +TestExecuteCommand()
+  +TestConcatTwoDicts()
+  +TestConcatTwoDictsOneNull()
+}
+
+class Game.Test.ItemTest {
+  +GetItem()
+  +TestSetLevel()
+}
+
+class Game.Test.PlayerCharacterTest {
+  +{static}GetPlayerCharacter()
+  +TestLevelUp()
+  +Test2LevelsUp()
+  +TestUseAndStopUsing()
+}
+
+class Game.Test.SaveSystemTest {
+  -{static}_dirName: string {readOnly}
+  +{static}GetPlayerCharacter()
+  +TestGetSaveDataDirPath()
+  +TestSaveGame()
+  +TestLoadSaveGame()
+  +TestGetSaveFiles()
+}
+@enduml

@@ -6,3 +6,4 @@
 - omnisharp
 - roslyn
 - zed editor
+- PlantUML
